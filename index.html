@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <style>
+    /* Optional styles for cart items */
+    .cart-item {
+      border-bottom: 1px solid #ddd;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+  <h1>Your Shopping Cart</h1>
+
+  <div id="cart-items"></div>
+
+  <button>Checkout</button>
+
+  <script>
+    // Access the shopping cart functionality (replace with your actual implementation)
+    const shoppingCart = /* Your shopping cart object (e.g., new ShoppingCart()) */;
+
+    // Function to update and display cart items
+    function updateCartDisplay() {
+      const cartItemsContainer = document.getElementById('cart-items');
+      cartItemsContainer.innerHTML = ''; // Clear previous content
+
+      if (shoppingCart.getTotalItems() === 0) {
+        cartItemsContainer.textContent = 'Your cart is empty.';
+        return;
+      }
+
+      // Loop through cart items and create HTML elements
+      for (const item of shoppingCart.items) {
+        const cartItemElement = document.createElement('div');
+        cartItemElement.classList.add('cart-item');
+
+        const productInfo = item.product.getInfo();
+        const quantity = item.quantity;
+        const totalPrice = (item.product.price * quantity).toFixed(2);
+
+        cartItemElement.innerHTML = `
+          <span>${productInfo}</span>
+          <span>Quantity: ${quantity}</span>
+          <span>$${totalPrice}</span>
+        `;
+
+        cartItemsContainer.appendChild(cartItemElement);
+      }
+
+      // Optional: Update total price or other cart summary information
+    }
+
+    // Call updateCartDisplay initially to show the cart contents
+    updateCartDisplay();
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
